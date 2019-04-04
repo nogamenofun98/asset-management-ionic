@@ -5,9 +5,15 @@ import {FormGroup} from '@angular/forms';
     selector: 'dropdown',
     template: `
         <div [formGroup]="form">
-            <select class="form-control" [id]="field.name" [formControlName]="field.name">
-                <option *ngFor="let opt of field.options" [value]="opt.key">{{opt.label}}</option>
-            </select>
+            <ion-item>
+                <ion-label position="floating" [attr.for]="field.label">
+                    {{field.label}}
+                    <strong class="text-danger" *ngIf="field.required">*</strong>
+                </ion-label>
+                <ion-select [id]="field.name" [formControlName]="field.name">
+                    <ion-select-option *ngFor="let opt of field.options" [value]="opt.key">{{opt.label}}</ion-select-option>
+                </ion-select>
+            </ion-item>
         </div>
     `
 })

@@ -5,10 +5,11 @@ import {Component, Input, OnInit} from '@angular/core';
     template: `
         <div class="form-group row" [formGroup]="form">
             <div [ngSwitch]="field.type">
-                <ion-label [attr.for]="field.label">
-                    {{field.label}}
-                    <strong class="text-danger" *ngIf="field.required">*</strong>
-                </ion-label>
+
+                <!--                    <ion-label [attr.for]="field.label">-->
+                <!--                        {{field.label}}-->
+                <!--                        <strong class="text-danger" *ngIf="field.required">*</strong>-->
+                <!--                    </ion-label>-->
                 <textbox *ngSwitchCase="'text'" [field]="field" [form]="form"></textbox>
                 <dropdown *ngSwitchCase="'dropdown'" [field]="field" [form]="form"></dropdown>
                 <checkbox *ngSwitchCase="'checkbox'" [field]="field" [form]="form"></checkbox>

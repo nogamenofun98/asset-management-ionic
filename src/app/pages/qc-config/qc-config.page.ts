@@ -99,7 +99,22 @@ export class CreateQCConfigPage {
     isLoading: boolean;
     public form: FormGroup;
     unsubcribe: any;
-    public fields: any[] = [];
+    public fields: any[] = [
+        {
+            type: 'text',
+            name: 'firstName',
+            label: 'First Name',
+            value: '',
+            required: true,
+        },
+        {
+            type: 'text',
+            name: 'lastName',
+            label: 'Last Name',
+            value: '',
+            required: true,
+        },
+    ];
     private modalController: ModalController;
     private loadingObject: any;
     private token: any;

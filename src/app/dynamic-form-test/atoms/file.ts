@@ -7,18 +7,24 @@ import {FormGroup} from '@angular/forms';
         <div [formGroup]="form">
             <div *ngIf="!field.value" class="drop-container dropzone" dropZone (hovered)="toggleHover($event)"
                  (dropped)="field.onUpload($event)" [class.hovering]="isHovering">
-                <p class="m-0">
-                    Drag a file here or
-                    <label class="upload-button">
-                        <input type="file" multiple="" (change)="field.onUpload($event.target.files)"> browse
-                    </label>
-                    to upload.
-                </p>
+                <ion-item>
+                    <ion-label position="floating" [attr.for]="field.label">
+                        {{field.label}}
+                        <strong class="text-danger" *ngIf="field.required">*</strong>
+                    </ion-label>
+                    <p class="m-0">
+                        Drag a file here or
+                        <label class="upload-button">
+                            <input type="file" multiple="" (change)="field.onUpload($event.target.files)"> browse
+                        </label>
+                        to upload.
+                    </p>
+                </ion-item>
             </div>
             <div *ngIf="field.value">
                 <!-- <button type="button" class="btn btn-primary">Change</button> -->
                 <div class="card">
-                    <img class="card-img-top" [src]="field.value">
+                    <ion-img class="card-img-top" [src]="field.value"></ion-img>
                 </div>
             </div>
         </div>
