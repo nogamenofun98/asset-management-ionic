@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col class="ion-align-self-center" size-md="7" size-xs="7">
+                    <ion-title>Forgot Password</ion-title>
+                </ion-col>
+                <ion-col size-md="4" size-xs="1">
+                </ion-col>
+                <ion-col size-md="1" size-xs="4">
+                    <ion-button (click)="dismissForgot()" class="ion-float-end" color="danger">X</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form #form="ngForm" (ngSubmit)="form.form.valid && forgot(form)" method="post">
+        <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input #email="ngModel" autocomplete="true" autofocus="true" name="email" ngModel
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+                       type="email"></ion-input>
+        </ion-item>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+             class="alert alert-danger">
+            <div *ngIf="email.errors?.required && email.dirty">Email is required</div>
+            <div *ngIf="email.errors?.pattern">Email must be a valid email address</div>
+        </div>
+        <ion-button color="danger" expand="full" type="submit">Reset Password</ion-button>
+    </form>
+
+    <p text-center>Remember Again?</p>
+    <ion-button (click)="loginModal()" color="primary" expand="full">Login</ion-button>
+</ion-content>

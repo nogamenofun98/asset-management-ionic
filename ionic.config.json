@@ -1,0 +1,8 @@
+{
+  "name": "qc-laravel-front",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}

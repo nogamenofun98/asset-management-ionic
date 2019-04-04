@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>QC Configs</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar (ionChange)="search()" [(ngModel)]="searchString" autocomplete="true"
+                       placeholder="Filter qc_configs"
+                       type="text"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-fab horizontal="end" slot="fixed" vertical="bottom">
+        <ion-fab-button (click)="create()" class="ion-float-end" color="primary">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <!--<pre>{{qc_configs | json}}</pre>-->
+    <div *ngIf="qc_configs">
+        <ion-virtual-scroll [items]="qc_configs | searchQcConfigFilter: searchString">
+            <ion-item (click)="selectQc_config(qc_config.id)" *virtualItem="let qc_config" button="true" type="button">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size-md="10" size-xs="8">
+                            <ion-label>
+                                <h3>Name: {{ qc_config.config_name }}</h3>
+                            </ion-label>
+                        </ion-col>
+                        <ion-col class="ion-align-items-start" size-md="2" size-xs="4">
+                            <ion-label class="ion-text-left ion-text-wrap">
+                                <p>Config: {{ qc_config.config }}</p>
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size-md="10" size-xs="8">
+                            <ion-label>
+                                <p>TBC: TBC</p>
+                            </ion-label>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-virtual-scroll>
+    </div>
+    <div *ngIf="!qc_configs">
+        <ion-list>
+            <ion-item *ngFor="let i of fakeCount(10)" button="true" type="button">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col class="ion-align-items-start" size-md="10" size-xs="8">
+                            <ion-label>
+                                <ion-skeleton-text animated style="width: 20%;"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                            </ion-label>
+                        </ion-col>
+                        <ion-col class="ion-align-items-start" size-md="2" size-xs="4">
+                            <ion-note class="ion-text-left">
+                                <ion-skeleton-text animated style="width: 20%;"></ion-skeleton-text>
+                            </ion-note>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </div>
+    <!--    <div id="testoks" *ngIf="isAdd">-->
+    <!--        -->
+    <!--    </div>-->
+</ion-content>

@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col class="ion-align-self-center" size-md="6" size-xs="5">
+                    <ion-title>Register</ion-title>
+                </ion-col>
+                <ion-col size-md="5" size-xs="3">
+                </ion-col>
+                <ion-col size-md="1" size-xs="4">
+                    <ion-button (click)="dismissRegister()" class="ion-float-end" color="danger">X</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form #form="ngForm" (ngSubmit)="form.form.valid && register(form)" method="post">
+        <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input #name="ngModel" autocomplete="true" autofocus="true" name="name" ngModel required
+                       type="text"></ion-input>
+        </ion-item>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+             class="alert alert-danger">
+            <div *ngIf="name.errors?.required && name.dirty">Name is required</div>
+        </div>
+        <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input #email="ngModel" autocomplete="true" autofocus="true" name="email" ngModel
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+                       type="email"></ion-input>
+        </ion-item>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)"
+             class="alert alert-danger">
+            <div *ngIf="email.errors?.required && email.dirty">Email is required</div>
+            <div *ngIf="email.errors?.pattern">Email must be a valid email address</div>
+        </div>
+        <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input #password="ngModel" (keyup)="checkPwd(password,repeat_password)" autocomplete="true"
+                       autofocus="true"
+                       name="password" ngModel required type="password"></ion-input>
+        </ion-item>
+        <div *ngIf="password.invalid || isErrorOnInput"
+             class="alert alert-danger">
+            <div *ngIf="password.errors?.required && password.dirty ">Password is required</div>
+            <!--<div *ngIf="password.errors?.matchError">Both password must be same!</div>-->
+        </div>
+        <ion-item>
+            <ion-label position="floating">Repeat Password</ion-label>
+            <ion-input #repeat_password="ngModel" (keyup)="checkPwd(password,repeat_password)" autocomplete="true"
+                       autofocus="true"
+                       name="repeat_password" ngModel required type="password"></ion-input>
+        </ion-item>
+        <div *ngIf="repeat_password.invalid || isErrorOnInput"
+             class="alert alert-danger">
+            <div *ngIf="repeat_password.errors?.required && repeat_password.dirty">Repeat password is
+                required
+            </div>
+            <div *ngIf="repeat_password.errors?.matchError || isErrorOnInput">Both password must be same!</div>
+        </div>
+        <ion-button color="danger" expand="full" type="submit">Register</ion-button>
+    </form>
+
+    <p text-center>Already have a account?</p>
+    <ion-button (click)="loginModal()" color="primary" expand="full">Login</ion-button>
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col class="ion-align-self-center" size-md="6" size-xs="9">
+                    <ion-title>Create New QC Config</ion-title>
+                </ion-col>
+                <ion-col size-md="5" size-xs="1">
+                </ion-col>
+                <ion-col size-md="1" size-xs="2">
+                    <ion-button (click)="dismissModal()" class="ion-float-end" color="danger">X</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">Dynamic Forms</div>
+            <div class="card-body">
+                <dynamic-form-builder [fields]="getFields()"></dynamic-form-builder>
+            </div>
+        </div>
+    </div>
+    <!--    <form #form="ngForm" (ngSubmit)="form.form.valid && create(form)" method="post">-->
+
+    <!--      <ion-grid>-->
+    <!--          <ion-row>-->
+    <!--              <ion-col size="5"></ion-col>-->
+    <!--              <ion-col size="2">-->
+    <!--                 <ion-button (click)="showInput()" type="button" size="small" fill="outline" color="secondary"><ion-icon name="add"></ion-icon></ion-button>-->
+    <!--              </ion-col>-->
+    <!--              <ion-col size="5"></ion-col>-->
+    <!--          </ion-row>-->
+    <!--      </ion-grid>-->
+    <!--        <ion-button type="submit" expand="full" color="primary">Create</ion-button>-->
+    <!--    </form>-->
+</ion-content>

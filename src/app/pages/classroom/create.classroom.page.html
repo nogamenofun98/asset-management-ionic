@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-grid>
+            <ion-row>
+                <ion-col class="ion-align-self-center" size-md="6" size-xs="5">
+                    <ion-title>Create New Projector</ion-title>
+                </ion-col>
+                <ion-col size-md="5" size-xs="3">
+                </ion-col>
+                <ion-col size-md="1" size-xs="4">
+                    <ion-button (click)="dismissModal()" class="ion-float-end" color="danger">X</ion-button>
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form #form="ngForm" (ngSubmit)="form.form.valid && create(form)" method="post">
+        <ion-item>
+            <ion-label position="floating">Label</ion-label>
+            <ion-input #label="ngModel" autocomplete="true" autofocus="true" name="label" ngModel required
+                       type="text"></ion-input>
+        </ion-item>
+        <div *ngIf="label.invalid && (label.dirty || label.touched)"
+             class="alert alert-danger">
+            <div *ngIf="label.errors?.required && label.dirty">Label is required</div>
+        </div>
+        <ion-item>
+            <ion-label position="floating">Model</ion-label>
+            <ion-input #model="ngModel" autocomplete="true" autofocus="true" name="model" ngModel required
+                       type="text"></ion-input>
+        </ion-item>
+        <div *ngIf="model.invalid && (model.dirty || model.touched)"
+             class="alert alert-danger">
+            <div *ngIf="model.errors?.required && model.dirty">Model is required</div>
+        </div>
+        <ion-item>
+            <ion-label position="floating">Serial Number</ion-label>
+            <ion-input #serial="ngModel" autocomplete="true" autofocus="true" name="serial" ngModel required
+                       type="text"></ion-input>
+        </ion-item>
+        <div *ngIf="serial.invalid && (serial.dirty || serial.touched)"
+             class="alert alert-danger">
+            <div *ngIf="serial.errors?.required && serial.dirty">Serial Number is required</div>
+        </div>
+        <ion-item>
+            <ion-label position="floating">Lamp Hour</ion-label>
+            <ion-input #hour="ngModel" autocomplete="true" autofocus="true" name="hour" ngModel required
+                       type="number"></ion-input>
+        </ion-item>
+        <div *ngIf="hour.invalid && (hour.dirty || hour.touched)"
+             class="alert alert-danger">
+            <div *ngIf="hour.errors?.required && hour.dirty">Lamp Hour is required</div>
+        </div>
+        <ion-button color="primary" expand="full" type="submit">Create</ion-button>
+    </form>
+</ion-content>

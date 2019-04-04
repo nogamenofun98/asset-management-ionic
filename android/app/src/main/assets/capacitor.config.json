@@ -1,0 +1,6 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "qc-laravel-front",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
