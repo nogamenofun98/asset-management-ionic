@@ -6,11 +6,12 @@ import {FormGroup} from '@angular/forms';
     template: `
         <div [formGroup]="form">
             <div [formGroupName]="field.name">
+                <ion-item>
                 <div *ngFor="let opt of field.options" class="form-check form-check">
-                    <label class="form-check-label">
-                        <input [formControlName]="opt.key" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"/>
-                        {{opt.label}}</label>
+                    <ion-label class="form-check-label">{{opt.label}}</ion-label>
+                    <ion-checkbox [formControlName]="opt.key" class="form-check-input" id="inlineCheckbox1"></ion-checkbox>
                 </div>
+                </ion-item>
             </div>
 
         </div>
