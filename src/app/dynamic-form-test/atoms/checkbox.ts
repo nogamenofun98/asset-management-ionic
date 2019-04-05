@@ -6,14 +6,21 @@ import {FormGroup} from '@angular/forms';
     template: `
         <div [formGroup]="form">
             <div [formGroupName]="field.name">
-                <ion-item>
-                <div *ngFor="let opt of field.options" class="form-check form-check">
-                    <ion-label class="form-check-label">{{opt.label}}</ion-label>
-                    <ion-checkbox [formControlName]="opt.key" class="form-check-input" id="inlineCheckbox1"></ion-checkbox>
-                </div>
-                </ion-item>
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label [attr.for]="field.label">
+                            {{field.label}}
+                            <strong class="text-danger" *ngIf="field.required">*</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <div *ngFor="let opt of field.options" class="form-check form-check">
+                        <ion-item>
+                            <ion-label class="form-check-label">{{opt.label}}</ion-label>
+                            <ion-checkbox [formControlName]="opt.key" class="form-check-input" id="inlineCheckbox1"></ion-checkbox>
+                        </ion-item>
+                    </div>
+                </ion-list>
             </div>
-
         </div>
     `
 })

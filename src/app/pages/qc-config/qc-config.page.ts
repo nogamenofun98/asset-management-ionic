@@ -116,27 +116,19 @@ export class CreateQCConfigPage {
         },
         {
             type: 'text',
-            name: 'nickname',
-            label: 'NickName',
-            value: '',
-            multiline: true,
-            required: true,
-        },
-        {
-            type: 'text',
             name: 'email',
             label: 'Email',
             value: '',
             required: true,
         },
 
-        {
-            type: 'file',
-            name: 'picture',
-            label: 'Picture',
-            required: true,
-            onUpload: this.onUpload.bind(this)
-        },
+        // {
+        //     type: 'file',
+        //     name: 'picture',
+        //     label: 'Picture',
+        //     required: true,
+        //     onUpload: this.onUpload.bind(this)
+        // },
         {
             type: 'dropdown',
             name: 'country',
@@ -150,9 +142,8 @@ export class CreateQCConfigPage {
         },
         {
             type: 'radio',
-            name: 'country',
-            label: 'Country',
-            value: 'in',
+            name: 'gender',
+            label: 'Gender',
             required: true,
             options: [
                 {key: 'm', label: 'Male'},

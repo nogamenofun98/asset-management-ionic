@@ -1,6 +1,6 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 // components
 import {FieldBuilderComponent} from './field-builder/field-builder.component';
@@ -14,6 +14,7 @@ import {DynamicFormTestComponent} from './dynamic-form-test.component';
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         IonicModule,
         ReactiveFormsModule,
     ],
@@ -30,5 +31,6 @@ import {DynamicFormTestComponent} from './dynamic-form-test.component';
     exports: [DynamicFormTestComponent],
     providers: []
 })
+
 export class DynamicFormTestModule {
 }

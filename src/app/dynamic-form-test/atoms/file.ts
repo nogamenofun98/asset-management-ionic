@@ -5,13 +5,14 @@ import {FormGroup} from '@angular/forms';
     selector: 'file',
     template: `
         <div [formGroup]="form">
+
+            <ion-label [attr.for]="field.label">
+                {{field.label}}
+                <strong class="text-danger" *ngIf="field.required">*</strong>
+            </ion-label>
             <div *ngIf="!field.value" class="drop-container dropzone" dropZone (hovered)="toggleHover($event)"
                  (dropped)="field.onUpload($event)" [class.hovering]="isHovering">
                 <ion-item>
-                    <ion-label position="floating" [attr.for]="field.label">
-                        {{field.label}}
-                        <strong class="text-danger" *ngIf="field.required">*</strong>
-                    </ion-label>
                     <p class="m-0">
                         Drag a file here or
                         <label class="upload-button">
@@ -27,6 +28,7 @@ import {FormGroup} from '@angular/forms';
                     <ion-img class="card-img-top" [src]="field.value"></ion-img>
                 </div>
             </div>
+
         </div>
     `,
     styles: [

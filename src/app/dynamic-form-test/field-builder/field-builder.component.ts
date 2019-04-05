@@ -36,7 +36,7 @@ export class FieldBuilderComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.form);
+        // console.log(this.form);
     }
 
 }

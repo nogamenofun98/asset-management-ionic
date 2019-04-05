@@ -6,7 +6,7 @@ import {FormGroup} from '@angular/forms';
     template: `
         <div [formGroup]="form">
             <ion-item>
-                <ion-label position="floating" [attr.for]="field.label">
+                <ion-label [attr.for]="field.label">
                     {{field.label}}
                     <strong class="text-danger" *ngIf="field.required">*</strong>
                 </ion-label>

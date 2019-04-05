@@ -26,7 +26,7 @@ const routes: Routes = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     declarations: [QcConfigPage, SearchQcConfigFilterPipe, CreateQCConfigPage],
-    entryComponents: [CreateQCConfigPage]
+    entryComponents: [CreateQCConfigPage],
 })
 export class QcConfigPageModule {
 }
