@@ -86,7 +86,7 @@ export class ForgotPage implements OnInit {
         toast.onDidDismiss().then(() => {
             if (isOK) {
                 this.dismissForgot();
-                this.navCtrl.navigateRoot('/landing');
+                this.navCtrl.navigateRoot('/');
             }
         });
     }

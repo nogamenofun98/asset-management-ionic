@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CreateQCConfigPage} from '../pages/qc-config/qc-config.page';
 
 @Component({
     selector: 'dynamic-form-builder',
     template: `
         <form (ngSubmit)="submit(form)" [formGroup]="form" class="form-horizontal">
             <div *ngFor="let field of fields">
-                <field-builder [field]="field" [form]="form"></field-builder>
+                <field-builder [appCreateDynamic]="appDynamic" [field]="field" [form]="form"></field-builder>
             </div>
             <div class="form-row"></div>
             <div class="form-group row">
@@ -21,7 +22,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class DynamicFormTestComponent implements OnInit {
     @Input() fields: any[] = [];
+    @Input() appCreateQC: CreateQCConfigPage;
     form: FormGroup;
+    public appDynamic = this;
 
     constructor() {
     }
@@ -43,6 +46,7 @@ export class DynamicFormTestComponent implements OnInit {
                 } else {
                     // console.log('is checkbox');
                     for (const opt of f.options) {
+                        console.log('value: ' + opt.value);
                         opts[opt.key] = new FormControl(opt.value);
                     }
                     fieldsCtrls[f.name] = new FormGroup(opts);
@@ -56,4 +60,15 @@ export class DynamicFormTestComponent implements OnInit {
     submit(form: any) {
         console.log(form);
     }
+
+    public delField(control: any) {
+        // console.log(control);
+        const index = this.appCreateQC.fields.indexOf(control);
+        // console.log(index);
+        this.appCreateQC.fields.splice(index, 1); // to remove from the UI
+        this.form.removeControl(control.name); // remove from the form control
+        // console.log(this.form);
+        // this.form.removeControl(control);
+    }
 }
+

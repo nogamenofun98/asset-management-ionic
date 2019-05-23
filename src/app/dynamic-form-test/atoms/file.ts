@@ -93,10 +93,16 @@ export class FileComponent {
     }
 
     get isValid() {
+        if (Object.keys(this.form.controls).length === 0) {
+            return 0;
+        }
         return this.form.controls[this.field.name].valid;
     }
 
     get isDirty() {
+        if (Object.keys(this.form.controls).length === 0) {
+            return 0;
+        }
         return this.form.controls[this.field.name].dirty;
     }
 

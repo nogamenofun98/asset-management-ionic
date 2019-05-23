@@ -92,7 +92,7 @@ export class ClassroomPage implements OnInit {
 }
 
 @Component({
-    selector: 'app-create',
+    selector: 'app-create-classroom',
     templateUrl: './create.classroom.page.html',
 })
 export class CreateClassroomPage {

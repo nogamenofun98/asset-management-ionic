@@ -91,7 +91,7 @@ export class ResetPage implements OnInit {
     bindToastDismissEvent(toast: any, isOK: boolean = true) {
         toast.onDidDismiss().then(() => {
             if (isOK) {
-                this.navCtrl.navigateRoot('/landing');
+                this.navCtrl.navigateRoot('/');
             }
         });
     }

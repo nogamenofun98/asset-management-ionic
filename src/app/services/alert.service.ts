@@ -6,7 +6,9 @@ import {AlertController, LoadingController, ToastController} from '@ionic/angula
 })
 
 export class AlertService {
-    constructor(private toastController: ToastController, private loadingController: LoadingController, public alertController: AlertController) {
+    constructor(private toastController: ToastController,
+                private loadingController: LoadingController,
+                public alertController: AlertController) {
     }
 
     async presentToast(message: any, color: string = 'dark', duration: number = 1500, showClose: boolean = false) {

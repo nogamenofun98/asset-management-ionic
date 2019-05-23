@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EnvService} from '../../services/env.service';
 import {AuthService} from '../../services/auth.service';
-import {ModalController, NavController, PopoverController} from '@ionic/angular';
+import {ActionSheetController, AlertController, ModalController, NavController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, NgForm} from '@angular/forms';
 import {AlertService} from '../../services/alert.service';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-qc-config',
@@ -92,86 +93,28 @@ export class QcConfigPage implements OnInit {
 }
 
 @Component({
-    selector: 'app-create',
+    selector: 'app-create-qc',
     templateUrl: './create.qc-config.page.html',
 })
 export class CreateQCConfigPage {
     isLoading: boolean;
     public form: FormGroup;
+    public appCreateQC = this;
     unsubcribe: any;
-    public fields: any[] = [
-        {
-            type: 'text',
-            name: 'firstName',
-            label: 'First Name',
-            value: '',
-            required: true,
-        },
-        {
-            type: 'text',
-            name: 'lastName',
-            label: 'Last Name',
-            value: '',
-            required: true,
-        },
-        {
-            type: 'text',
-            name: 'email',
-            label: 'Email',
-            value: '',
-            required: true,
-        },
-
-        // {
-        //     type: 'file',
-        //     name: 'picture',
-        //     label: 'Picture',
-        //     required: true,
-        //     onUpload: this.onUpload.bind(this)
-        // },
-        {
-            type: 'dropdown',
-            name: 'country',
-            label: 'Country',
-            value: 'in',
-            required: true,
-            options: [
-                {key: 'in', label: 'India'},
-                {key: 'us', label: 'USA'}
-            ]
-        },
-        {
-            type: 'radio',
-            name: 'gender',
-            label: 'Gender',
-            required: true,
-            options: [
-                {key: 'm', label: 'Male'},
-                {key: 'f', label: 'Female'}
-            ]
-        },
-        {
-            type: 'checkbox',
-            name: 'hobby',
-            label: 'Hobby',
-            required: true,
-            options: [
-                {key: 'f', label: 'Fishing'},
-                {key: 'c', label: 'Cooking'}
-            ]
-        }
-    ];
+    public fields: any[] = [];
     private modalController: ModalController;
     private loadingObject: any;
     private token: any;
     private headers: HttpHeaders;
+    testObservable: Observable<any[]>;
 
     constructor(modalController: ModalController,
                 private alertService: AlertService,
                 private authService: AuthService,
                 private http: HttpClient,
                 private env: EnvService,
-                private popoverController: PopoverController,
+                private actionSheetController: ActionSheetController,
+                private alertController: AlertController,
     ) {
         this.modalController = modalController;
         this.token = this.authService.token;
@@ -183,9 +126,14 @@ export class CreateQCConfigPage {
             fields: new FormControl(JSON.stringify(this.fields))
         });
         this.unsubcribe = this.form.valueChanges.subscribe((update) => {
-            console.log(update);
+            // console.log(update);
             this.fields = JSON.parse(update.fields);
         });
+        if (!this.testObservable) {
+            this.testObservable = new Observable<any[]>(test => {
+                test.next(this.fields);
+            });
+        }
     }
 
     dismissModal() {
@@ -250,4 +198,175 @@ export class CreateQCConfigPage {
     ngDistroy() {
         this.unsubcribe();
     }
+
+    async openAddFieldAction(ev: any) {
+        const actionSheet = await this.actionSheetController.create({
+            header: 'Action',
+            buttons: [
+                {
+                    text: 'Text Field',
+                    icon: 'add',
+                    handler: () => {
+                        this.promptAddField('text');
+                    }
+                },
+                {
+                    text: 'Radio Button',
+                    icon: 'add',
+                    handler: () => {
+                        this.promptAddField('radio');
+                    }
+                },
+                {
+                    text: 'Dropdown',
+                    icon: 'add',
+                    handler: () => {
+                        this.promptAddField('dropdown');
+                    }
+                },
+                {
+                    text: 'Checkbox',
+                    icon: 'add',
+                    handler: () => {
+                        this.promptAddField('checkbox');
+                    }
+                },
+            ],
+        });
+        await actionSheet.present();
+    }
+
+    promptAddField(field: string) {
+        // console.log(field);
+        this.presentAlertPrompt(field);
+    }
+
+    async presentAlertPrompt(field: string) {
+        let inputs = [];
+        switch (field) {
+            case 'text':
+                inputs = [{
+                    name: 'field_name',
+                    type: 'text',
+                    placeholder: 'Name for the field'
+                },
+                    {
+                        name: 'field_label',
+                        type: 'text',
+                        placeholder: 'Label for the field'
+                    },
+                    {
+                        name: 'field_required',
+                        type: 'text',
+                        placeholder: 'Ex: 1 = true, 0 = false',
+                    },
+                ];
+                break;
+            case 'radio':
+            case 'checkbox':
+            case 'dropdown':
+                inputs = [{
+                    name: 'field_name',
+                    type: 'text',
+                    placeholder: 'Name for the field'
+                },
+                    {
+                        name: 'field_label',
+                        type: 'text',
+                        placeholder: 'Label for the field'
+                    },
+                    {
+                        name: 'field_options',
+                        type: 'text',
+                        placeholder: 'Options (Ex: key:label,key:label,...)'
+                    },
+                    {
+                        name: 'field_required',
+                        type: 'text',
+                        placeholder: 'Ex: 1 = true, 0 = false',
+                    },
+                ];
+                break;
+        }
+        const alert = await this.alertController.create({
+            header: 'Prompt!',
+            inputs: inputs,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        // console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Ok',
+                    handler: (data) => {
+                        /*
+                        * field_label: ""
+                            field_name: ""
+                            field_required: ""*/
+                        if (!data.field_label) {
+                            return;
+                        }
+                        if (!data.field_name) {
+                            return;
+                        }
+                        if (!data.field_required) {
+                            return;
+                        }
+                        console.log('Confirm Ok');
+                        // console.log(data);
+                        this.addFieldToFields(data, field);
+
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+    addFieldToFields(field: any, type: string) {
+        // add object into fields list
+        let obj = null;
+        if (type === 'text') {
+            obj = {
+                type: type,
+                name: field.field_name,
+                label: field.field_label,
+                required: (field.field_required === '' || field.field_required === 0) ? 0 : 1,
+                value: '',
+            };
+        } else {
+            // split using "," to get each option, then split again with : to get key and label
+            const options = field.field_options.split(',');
+            const optionsArray = [];
+            let keyLabel = null;
+            options.forEach(option => {
+                keyLabel = option.split(':');
+                const temp = {
+                    key: keyLabel[0],
+                    label: keyLabel[1],
+                };
+                optionsArray.push(temp);
+            });
+            obj = {
+                type: type,
+                name: field.field_name,
+                label: field.field_label,
+                required: (field.field_required === '' || field.field_required === 0) ? 0 : 1,
+                value: '',
+                options: optionsArray
+            };
+        }
+        // console.log(obj);
+        this.fields.push(obj);
+        this.form = new FormGroup({
+            fields: new FormControl(JSON.stringify(this.fields))
+        });
+        // console.log(this.fields);
+    }
+
+    // remove field is in dynamic form components
 }

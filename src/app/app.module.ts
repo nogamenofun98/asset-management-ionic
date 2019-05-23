@@ -11,6 +11,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {HttpClientModule} from '@angular/common/http';
 import {IonicStorageModule, Storage} from '@ionic/storage';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 
 export function jwtOptionsFactory(storage: Storage) {
@@ -41,6 +43,7 @@ export function jwtOptionsFactory(storage: Storage) {
             }
         }),
         HttpClientModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [

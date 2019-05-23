@@ -27,10 +27,17 @@ export class TextBoxComponent {
     }
 
     get isValid() {
+        // console.log(this.form);
+        if (Object.keys(this.form.controls).length === 0) {
+            return 0;
+        }
         return this.form.controls[this.field.name].valid;
     }
 
     get isDirty() {
+        if (Object.keys(this.form.controls).length === 0) {
+            return 0;
+        }
         return this.form.controls[this.field.name].dirty;
     }
 }
